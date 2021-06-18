@@ -1,5 +1,4 @@
 //jshint esversion:6
-
 require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -12,9 +11,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
-
 const app = express();
-
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -60,7 +57,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://sheltered-fjord-14857.herokuapp.com/auth/google/secrets"
+    callbackURL: "https://sheltered-fjord-14857.herokuapp.com/auth/google/secrets",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
